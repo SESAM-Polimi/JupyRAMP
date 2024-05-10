@@ -73,7 +73,7 @@ You can also install RAMP from the source code! To do so, you first need to down
 
 * Or, you may download the source code directly from:
 
-`"RAMP GitHub Repository" <https://github.com/RAMP-project/RAMP>`_.
+`"RAMP GitHub Repository" <https://github.com/SESAM-Polimi/RAMP-Jupyter>`_.
 
 In this second case, the source code will be downloaded as a zip file, so you'll need to extract the files.
 
@@ -91,189 +91,74 @@ After downloading the source code using any of abovementioned methods, you'll ne
 
    conda env create -f environment.yml
 
-Quick start
+Quick Start
 ===========
-There are different ways to build a model using RAMP! Here, we provide a first example but you can find more information in our `documentation  <https://rampdemand.readthedocs.io/en/latest/?badge=latest>`_.
 
-Example python input files
+To start using the RAMP Jupyter Notebook interface in this repository, follow these steps:
+
+1. **Install Jupyter Notebook:** Ensure that Jupyter Notebook is installed in your environment. You can install it by running ``pip install jupyter notebook`` in your command line.
+
+2. **Launch Jupyter Notebook:** Launch Jupyter by typing ``jupyter notebook`` in your command line.
+
+3. **Open the Notebook:** In the online Jupyter interface, navigate to *ramp/Jupyter Notebooks/* and open **RAMP Example Village - Excel.ipynb**.
+
+
+How It Works
+============
+
+The RAMP Jupyter Notebook is designed to simulate electrical load profiles using your data provided in an Excel format. Below is a step-by-step guide on how to use the notebook:
+
+Step 1 - Upload Excel File
 --------------------------
-Three different input files are provided as example representing three different categories of appliances that can be modelled with RAMP.
-To have a look to the python files, you can download them using the `download_example` function:
+To begin, upload your Excel file that contains detailed data on appliance usage and other necessary parameters for simulation. Detailed instructions are provided in the notebook on how to structure your Excel file correctly.
 
-.. code-block:: python
+Step 2 - Set Simulation Parameters
+----------------------------------
+Set your simulation's start and end dates using the date picker widgets. These parameters will define the period over which the simulation will run.
 
-   from ramp import download_example
+Step 3 - Execute the Simulation
+-------------------------------
+Start the simulation by clicking the ``Run Simulation`` button. The notebook will process the data from the uploaded Excel file and generate electrical load profiles for each category included in your data across the specified period.
 
-   download_example("the specfic folder directory to save the files")
-
--  ``input_file_1.py``: represents the most basic electric appliances; it is 
-   an example of how to model lightbulbs, radios, TVs, fridges, and
-   other electric appliances. This input file is based on the ones used
-   for `the first RAMP publication <https://doi.org/10.1016/j.energy.2019.04.097>`__.
-
--  ``input_file_2.py``: shows how to model user-driven thermal loads, with the
-   example of a “shower” appliance. The peculiarity of thermal appliances
-   is that the nominal power can be provided as external input as a
-   “.csv” file (in this case, ``shower_P.csv``). For the example “shower”
-   appliance, the varying nominal power accounts for the effect of
-   groundwater temperature variation throughout the year. This input
-   file is based on that used for `this
-   publication <https://doi.org/10.3390/app10217445>`__.
-
--  ``input_file_3.py``: represents an example of how to model electric
-   cooking appliances. In this input file two different kind of meals
-   are modelled: 1) short and repetitive meals (e.g. breakfast); and 2)
-   main meals (e.g. lunch, dinner). Repetitive meals do not vary across
-   days, whilst main meals do so. In particular, every household can
-   randomly choose between 3 different types of main meal every day.
-   Such variability in meal preferences is modelled by means of two
-   parameters: the ``user preference`` and the ``preference index``. The
-   ``user preference`` defines how many types of meal are available for
-   each user to choose every day (e.g. 3). Then, each of the available
-   meal options is modelled separately, with a different
-   ``preference index`` attached. The stochastic process randomly varies
-   the meal preference of each user every day, deciding whether they
-   want a “type 1” meal, or a “type 2”, etc. on a given day. This input
-   file is used in `this
-   publication <https://doi.org/10.1109/PTC.2019.8810571>`__
-
-You can execute python input files within an IDE, in your terminal with python command
-
-.. code-block:: bash
-
-   python <path to .py input file>
-
-or in your terminal with the ``ramp`` command, see `Command line options <cmd_option_>`_ below for more information.
-
-Spreadsheet input files
+Step 4 - Review Results
 -----------------------
+Once the simulation is complete, the results will be displayed in the notebook. This includes daily and cumulative load profiles, showing the energy consumption patterns of different user categories outlined in your Excel file.
 
-It is also possible to use spreadsheets as input files. To do so, you
-need to run the ``ramp`` command with the option ``-i``:
+Detailed Steps in the Notebook
+------------------------------
 
-.. code-block:: bash
+1. **Initialization:** Select and upload your Excel file to initialize the simulation.
 
-   ramp -i <path to .xlsx input file>
+2. **Profile Simulation:** Configure the number of simulation days and initiate the process. Monitor progress through the displayed progress bar.
 
+3. **Visualizing Results:** Post-simulation, visualize daily average load curves and load profile variability.
 
-.. note:: You can input several files, separated from each others by a single blank space you can also input python files
+4. **Analyzing Key Metrics:** Review and analyze key energy metrics like daily energy consumption and peak power.
 
-.. _cmd_option:
+5. **Exporting the Results:** Finally, export the simulation results into an Excel file named "Load demand results.xlsx" for further analysis and reporting.
 
-Command line options
---------------------
+Caution
+=======
 
-In the command line you can also run .py input files
-If you already know how many daily profiles you want to simulate you can indicate it with the ``-n`` option:
-
-.. code-block:: bash
-
-   ramp -i <path to .xlsx or .py input file> -n 10
-
-will simulate 10 daily profiles. Note that if you do not provide this option you will being prompted for the
-number of daily profiles within the console.
+.. warning::
+   Do not modify the critical code blocks unless you are confident about the changes. These blocks are essential for the functionality of the notebook and may depend on specific library versions or data structures.
 
 
-If you want to save ramp results to a custom file, you can provide it with the option `-o`
+Example Input Files
+-------------------
+Three different input files are provided as examples representing three different categories of appliances that can be modeled with RAMP. To review the files, navigate to the *ramp/Jupyter Notebooks/Excel Input Files* folder in this repository. The files are named as follows:
 
-.. code-block:: bash
+- **input_file_1.xlsx**
+  This file represents the most basic electric appliances, such as lightbulbs, radios, TVs, fridges, and other electric appliances. It is based on the files used for the first RAMP publication. See the publication here: `first RAMP publication <https://doi.org/10.1016/j.energy.2019.04.097>`__.
 
-   ramp -i <path to .xlsx input file> -o <path where to save RAMP outputs>
+- **input_file_2.xlsx**
+  This file shows how to model user-driven thermal loads, exemplified by a "shower" appliance. The nominal power for thermal appliances can be provided externally as a ".csv" file (in this case, ``shower_P.csv``). This accounts for variations in groundwater temperature throughout the year. It is based on the input file used for this publication: `thermal appliance publication <https://doi.org/10.3390/app10217445>`__.
 
-.. note:: You can provide a number of output files, separated from each others by a single blank space, matching the number of input files.
-
-Other options are documented in the help of `ramp`, which you access with the ``-h`` option
-
-.. code-block:: bash
-
-   ramp -h
-
-
-If you have existing python input files, you can convert them to
-spreadsheet. To do so, go to the ``\ramp`` folder and run
-
-.. code-block:: bash
-
-   python ramp_convert_old_input_files.py -i <path to the input file you wish to convert>
-
-For other examples of command lines options, such as setting date ranges, please visit `the dedicated section  <https://rampdemand.readthedocs.io/en/latest/examples/year_simulation/year_simulation.html#setting-date-range>`_ of the documentation.
-
-Building a model with a python script
--------------------------------------
-
-.. code-block:: python
-
-   # importing functions
-   from ramp import UseCase, User
-
-   # Create a user category
-   household_1 = User(
-    user_name = "Household type 1", # an optional feature for the User class
-    num_users = 10, # Specifying the number of specific user category in the community
-   )
-
-You can add appliances to a user category by:
-
-.. code-block:: python
-
-   # adding some appliances for the household
-   radio = household_1.add_appliance(
-    name = "Small Radio", # optional feature for the appliance class
-    number = 1, # how many radio each household type 1 has
-    power = 10, # RAMP does not take care of units of measure (e.g., Watts), you must be consistent
-    func_time = 120, # Total functioning time of appliance in minutes
-    num_windows = 2, # how many time-windows the appliance is used in
-   )
+- **input_file_3.xlsx**
+  This file provides an example of how to model electric cooking appliances, featuring two types of meals: short and repetitive (e.g., breakfast) and main meals (e.g., lunch, dinner). Main meals vary daily, with households randomly choosing among three types each day. This variability is modeled with the ``user preference`` and ``preference index``, which allow for daily stochastic variation in meal type preferences. This input file is referenced in this publication: `cooking appliance publication <https://doi.org/10.1109/PTC.2019.8810571>`__.
 
 
-The use time frames can be specified using the 'window' method for each appliance of the user category:
 
-.. code-block:: python
-
-   # Specifying the functioning windows
-   radio.windows(
-    window_1 = [480,540], # from 8 AM to 9 AM
-    window_2 = [1320,1380], # from 10 PM to 11 PM
-   )
-
-You can also add another, different user to the simulation. In this case,
-we use a more compact formulation:
-
-.. code-block:: python
-
-   # Create a second user category
-   household_2 = User(
-    user_name = "Household type 2", # an optional feature for the User class
-    num_users = 13, # Specifying the number of specific user category in the community
-    )
-
-   # adding some appliances for the new household type in compact form, with windows specified directly and random variability
-   light_bulbs = household_2.add_appliance(
-    name = "Light bulbs", # optional feature for the appliance class
-    number = 5, # how many light bulbs each household type 2 has
-    power = 7, # RAMP does not take care of units of measure (e.g., Watts), you must be consistent
-    func_time = 120, # total functioning time of appliance in minutes
-    time_fraction_random_variability=0.2, # 20% random variability associated to the total functioning time
-    num_windows = 2, # how many time-windows the appliance is used in
-    window_1 = [390,480], # from 6.30 AM to 8 AM
-    window_2 = [1020,1440], # from 5 PM to 12 PM
-    random_var_w=0.35 # 35% randomness assigned to the size of the functioning windows
-    )
-
-At this point, we can group our different users into a "use case" and run the simulation, 
-for instance for a whole year.
-
-.. code-block:: python
-
-   use_case = UseCase(users=[household_1,household_2], date_start="2020-01-01", date_end="2020-12-31")
-   whole_year_profile = use_case.generate_daily_load_profiles()
-
-Here is your first load for a community including two types of housholds,
-for a total of 23 individual users. Of course, more variations and many more 
-features are possible! For instance, you can simulate loads even for 
-an individual appliance or user. In addition, you can use in-built plotting 
-functionalities to explore your results. Check out the documentation 
-for all the possibilities.
 
 Contributing
 ============
